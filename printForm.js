@@ -1,3 +1,4 @@
+let id = ''
 const params = new URLSearchParams(window.location.search)
 for (const [key, value] of params) { let id = value; }
 
@@ -7,20 +8,14 @@ document.getElementById('formBody').style.display = "none";
 document.getElementById('returnSection').style.display = "none";
 
 //fetch data
-const url = 'https://pffm.azurewebsites.net/getForms'
-const query = {
-    form: 'consultationFee',
-    itemId: id 
-}
+const url = `https://pffm.azurewebsites.net/getForms?formId=consultationFee&id=${id}`
 const header = {
-    'Content-Type': 'application/json',
     "Access-Control-Allow-Origin": "*"
 }
 
 fetch(url, {
     method: "GET",
-    headers: header,
-    body: JSON.stringify(query)
+    headers: header
 })
     .then(response => response.json())
     .then(data => populatePage(data))
